@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- kept this from template, seems important for mobile? -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burnley Arts Festival</title>
+
+  <!-- base CSS file, has most of the stuff (though not all?) -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- might add this back if I fix the button spacing -->
+  <!-- <link rel="stylesheet" href="extra.css"> -->
+
+  <style>
+    /* same vibes as the other pages, kept layout consistent */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #ff8a5c, #ff9e3d);
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px 0;
+      margin: 0;
+    }
+
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 22px;
+    }
+
+    .info-box {
+      width: 300px;
+      background: #5a3417;
+      color: white;
+      padding: 16px;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    .info-box h3 {
+      margin: 0 0 10px 0;
+    }
+
+    .info-box p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .map-image {
+      display: block;
+      max-width: 90%;
+      height: auto;
+      margin: 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    /* maybe add this later? */
+    /*
+    iframe.real-map {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 10px;
+      margin: 20px auto;
+    }
+    */
+  </style>
+</head>
+
+<body>
+
+<!-- NAV AREA – copy pasted from other pages -->
+<div class="sidebar" id="sidebar">
+  <nav>
+    <h2>Menu</h2>
+    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+      <li><a href="layout1.html" style="display:block; padding:0.5rem 1rem; background:#0000009c; border-radius:10px; color:white;">Home</a></li>
+      <li><a href="layout2.html" style="display:block; padding:0.5rem 1rem; background:#0000009c; border-radius:10px; color:#fff;">Arts Page</a></li>
+      <li><a href="layout3.html" style="display:block; padding:0.5rem 1rem; background:#0000009c; border-radius:10px; color:#fff;">Contact Page</a></li>
+      <a href="Map_Page.html"
+             style="display:block; padding:8px 14px; background:#0000009c; color:#fff; text-decoration:none; border-radius:10px;">
+            Where to find us
+          </a>
+    </ul>
+  </nav>
+</div>
+<a href="layout1.html"
+       title="Home"
+       style="position:fixed; top:12px; right:12px; z-index:9999;">
+      <img src="Images/FavIcon.png"
+           alt="favicon"
+           style="width:50px; height:50px; border-radius:6px;">
+    </a>
+
+<div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
+
+<header style="position: relative;">
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+</header>
+
+<h1>Where to Find Us</h1>
+
+<!-- dropped in map image here – just exported a JPEG from Google Maps -->
+<img src="Images/Map.png" alt="Art displays map" class="map-image">
+
+<!-- was going to embed Google Maps here but didn’t have time -->
+<!--
+<iframe class="real-map"
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2375.0271747927647!2d-2.244644784109272!3d53.79218704748882"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+-->
+
+<section class="info-row">
+
+  <div class="info-box">
+    <h3>Main Location</h3>
+    <p>Most of the festival happens around Market Square in Burnley Town Centre. If you’re nearby, just follow the signs or music.</p>
+  </div>
+
+  <div class="info-box">
+    <h3>Getting Here</h3>
+    <p>Train is easiest (Burnley Central is 8-10 mins walk). There’s parking but not loads, so maybe avoid driving if you can.</p>
+  </div>
+
+  <div class="info-box">
+    <h3>Look For</h3>
+    <p>There’ll be banners, a welcome desk, and volunteers walking around with lanyards. Pretty easy to spot once you're close.</p>
+  </div>
+
+</section>
+
+<script>
+  // same script from other pages – toggle for sidebar nav
+  function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    var backdrop = document.getElementById('backdrop');
+    if (!sidebar || !backdrop) return;
+
+    sidebar.classList.toggle('open');
+    backdrop.classList.toggle('visible');
+  }
+
+  if (document.getElementById('backdrop')) {
+    document.getElementById('backdrop').addEventListener('click', toggleSidebar);
+  }
+
+  document.addEventListener('click', function (e) {
+    var sidebar = document.getElementById('sidebar');
+    var toggle = document.querySelector('.toggle-btn');
+    if (!sidebar || !sidebar.classList.contains('open')) return;
+    if (sidebar.contains(e.target) || (toggle && toggle.contains(e.target))) return;
+
+    sidebar.classList.remove('open');
+    var backdrop = document.getElementById('backdrop');
+    if (backdrop) backdrop.classList.remove('visible');
+  }, true);
+</script>
+
+</body>
+</html>

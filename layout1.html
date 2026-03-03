@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- kept this from template, seems important for mobile? -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burnley Arts Festival</title>
+
+  <!-- base CSS file, has most of the stuff (though not all?) -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- might add this back if I fix the button spacing -->
+  <!-- <link rel="stylesheet" href="extra.css"> -->
+
+  <style>
+    /* dumped styles here instead of splitting, easier to test changes quickly */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #ff8a5c, #ff9e3d);
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px 0;
+      margin: 0;
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: center;
+      padding: 12px 16px;
+      flex-wrap: wrap;
+      gap: 18px; /* was 20px, felt too spaced out? */
+    }
+
+    .image-card {
+      width: 300px;
+      height: 170px;
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      /* box-shadow was added, then removed, kinda looked off */
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-card span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      text-align: center;
+    }
+
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 22px; /* inconsistent with card-row, didn't matter visually */
+    }
+
+    .info-box {
+      width: 300px;
+      background: #5a3417;
+      color: white;
+      padding: 16px;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    .info-box h3 {
+      margin: 0 0 10px 0;
+      /* looks better squished than default spacing */
+    }
+
+    .info-box p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* extra class I didn’t end up using */
+    .ghost-box {
+      border: 1px dashed red;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAV AREA – works ok, not messing with it again -->
+<div class="sidebar" id="sidebar">
+  <nav>
+    <h2>Menu</h2>
+    <!-- trying to keep it simple, no dropdowns or anything fancy -->
+    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+      <li><a href="layout1.html" style="display:block; padding:0.5rem 1rem; background:#0000009c; border-radius:10px; color:white;">Home</a></li>
+      <li><a href="layout2.html" style="display:block; padding:0.5rem 1rem; background:#0000009c; border-radius:10px; color:#fff;">Arts Page</a></li>
+      <li><a href="layout3.html" style="display:block; padding:0.5rem 1rem; background:#0000009c; border-radius:10px; color:#fff;">Contact Page</a></li>
+      <a href="Map_Page.html"
+             style="display:block; padding:8px 14px; background:#0000009c; color:#fff; text-decoration:none; border-radius:10px;">
+            Where to find us
+            
+          </a>
+          
+    </ul>
+  </nav>
+</div>
+
+<!-- didn't really style this properly -->
+<div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
+
+<header style="position: relative;">
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+</header>
+
+<h1>Burnley Arts Festival</h1>
+
+<!-- IMAGE SECTION -->
+<section class="card-row">
+
+  <div class="image-card">
+    <img src="Images/HOME_1.png" alt="Festival crowd">
+    <span>WELCOME</span>
+  </div>
+
+  <div class="image-card">
+    <img src="Images/Arts_Crafts.png" alt="Art displays">
+    <span>ARTS &amp; CRAFTS</span>
+  </div>
+
+  <div class="image-card">
+    <!-- filename is weird but it still loads -->
+    <img src="Images/Person Singing .png" alt="Live music">
+    <span>LIVE MUSIC</span>
+  </div>
+
+</section>
+
+<!-- FESTIVAL INFO -->
+<section class="info-row">
+
+  <div class="info-box">
+    <h3>About the Festival</h3>
+    <p>It’s kind of a pop-up thing, no set format. Just stalls, music, random performers. Good for wandering around.</p>
+  </div>
+
+  <div class="info-box">
+    <h3>What You’ll Find</h3>
+    <p>Crafts, face painting, live stuff. Some you join in, some you watch. Bit of a mix so it doesn’t get boring.</p>
+  </div>
+
+  <div class="info-box">
+    <h3>Why It Matters</h3>
+    <p>Helps local artists get noticed. Plus makes Burnley feel less empty for once. Even if art’s not your thing, it’s worth walking through.</p>
+  </div>
+
+</section>
+
+<!-- SIDEBAR TOGGLE LOGIC -->
+<script>
+  // reused this from an earlier project – not perfect but works
+  function toggleSidebar() {
+      var sidebar = document.getElementById('sidebar');
+      var backdrop = document.getElementById('backdrop');
+      if (!sidebar || !backdrop) return;
+
+      sidebar.classList.toggle('open');
+      backdrop.classList.toggle('visible');
+  }
+
+  // forgot why I added this twice – might break without it?
+  if (document.getElementById('backdrop')) {
+      document.getElementById('backdrop').addEventListener('click', toggleSidebar);
+  }
+
+  // extra check for outside clicks – not very clean
+  document.addEventListener('click', function (e) {
+      var sidebar = document.getElementById('sidebar');
+      var toggle = document.querySelector('.toggle-btn');
+      if (!sidebar || !sidebar.classList.contains('open')) return;
+      if (sidebar.contains(e.target) || (toggle && toggle.contains(e.target))) return;
+
+      sidebar.classList.remove('open');
+      var backdrop = document.getElementById('backdrop');
+      if (backdrop) backdrop.classList.remove('visible');
+  }, true);
+</script>
+
+<!-- left this in for testing, might remove later -->
+<!-- <script src="debug-ui.js"></script> -->
+<a href="layout1.html"
+       title="Home"
+       style="position:fixed; top:12px; right:12px; z-index:9999;">
+      <img src="Images/FavIcon.png"
+           alt="favicon"
+           style="width:50px; height:50px; border-radius:6px;">
+    </a>
+</body>
+</html>

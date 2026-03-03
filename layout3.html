@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- I forget this like every other project, so leaving a comment to shame myself -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Contact Page</title>
+
+  <!-- Main CSS file (most things are there… some aren’t) -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- I swear I needed another stylesheet at some point but can’t remember why -->
+  <!-- <link rel="stylesheet" href="extra.css"> -->
+</head>
+
+<body>
+
+  <!-- Sidebar navigation (works, don’t touch it) -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <h2>Menu</h2>
+
+      <!-- Inline styles because moving this broke spacing once -->
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.5rem;">
+        <li>
+          <a href="layout1.html"
+             style="display:block; padding:0.5rem 1rem; background:#0000009c; border-radius:10px; color:white; text-decoration:none;">
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="layout2.html"
+             style="display:block; padding:0.5rem 1rem; background:#0000009c; border-radius:10px; color:#fff;">
+            Arts Page
+          </a>
+        </li>
+        <li>
+          <a href="layout3.html"
+             style="display:block; padding:0.5rem 1rem; background:#0000009c; border-radius:10px; color:#fff;">
+            Contact Page
+            <a href="Map_Page.html"
+             style="display:block; padding:8px 14px; background:#0000009c; color:#fff; text-decoration:none; border-radius:10px;">
+            Where to find us
+            
+          </a>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Dark overlay (basically just a big click target) -->
+  <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
+
+  <!-- Header -->
+  <header style="position:relative;">
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <!-- Logo goes here eventually -->
+    <div class="logo"></div>
+
+    <!-- Absolute positioning because flex was being annoying -->
+    <div class="site-title"
+         style="position:absolute; left:50%; transform:translateX(-50%);">
+      Contact Page
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Intro card -->
+    <section class="explain-cols">
+      <div class="explain-card">
+        <h3>Contact</h3>
+
+        <!-- Button wrapping a link… not perfect HTML, but browsers cope -->
+        <button>
+          <a href="mailto:100228638@student.burnley.ac.uk">Email me here</a>
+        </button>
+
+        <!-- Thought about adding text here, decided against it -->
+        <!-- <p>Feel free to reach out</p> -->
+      </div>
+    </section>
+
+    <!-- Contact form -->
+    <section id="contact">
+      <h2>Contact Me</h2>
+
+      <!-- Using Formspree because backend forms are pain -->
+      <form action="https://formspree.io/f/mvgwbbnd" method="POST">
+
+        <label for="name">Your Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Your Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Your Message:</label><br>
+        <textarea id="message" name="message" required></textarea><br><br>
+
+        <!-- This button used to be styled differently -->
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <!-- Fixed home icon (honestly added last minute) -->
+    <a href="layout1.html"
+       title="Home"
+       style="position:fixed; top:12px; right:12px; z-index:9999;">
+      <img src="Images/FavIcon.png"
+           alt="favicon"
+           style="width:50px; height:50px; border-radius:6px;">
+    </a>
+
+  </main>
+
+  <!-- Page-specific styles (should probably live elsewhere, but meh) -->
+  <style>
+    .explain-card {
+      background: rgba(0,0,0,0.65);
+      color: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    /* Pretty sure this rule exists already, but leaving it */
+    .explain-card h3 {
+      margin-top: 0;
+    }
+
+    #contact {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* This form layout got rewritten like three times */
+    #contact form {
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #contact input,
+    #contact textarea {
+      width: 100%;
+      max-width: 760px;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    /* Redundant rule, but I don’t trust myself to delete it */
+    #contact textarea {
+      min-height: 120px;
+    }
+
+    #contact button {
+      margin-top: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* This might already be defined in styles.css */
+    button {
+      font-family: inherit;
+    }
+  </style>
+
+  <!-- Sidebar toggle script -->
+  <script>
+    // Basic toggle logic, kept verbose so I remember what it does
+    function toggleSidebar() {
+      const sidebarThing = document.getElementById('sidebar');
+      const darkBg = document.getElementById('backdrop');
+
+      // These checks are probably unnecessary but feel safer
+      if (sidebarThing) {
+        sidebarThing.classList.toggle('open');
+      }
+
+      if (darkBg) {
+        darkBg.classList.toggle('visible');
+      }
+
+      // Debug from earlier, keeping it commented just in case
+      // console.log('Sidebar toggled');
+    }
+  </script>
+
+  <!-- Footer -->
+  <p style="text-align:center; margin-top:2rem;">
+    © 2025 My Digital World | Created by Owen Ellison
+  </p>
+
+</body>
+</html>
